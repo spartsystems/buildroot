@@ -44,10 +44,12 @@ GST1_PLUGINS_BASE_DEPENDENCIES = gstreamer1
 
 # These plugins are liste in the order from ./configure --help
 
-ifeq ($(BR2_PACKAGE_ORC),y)
-GST1_PLUGINS_BASE_DEPENDENCIES += orc
-GST1_PLUGINS_BASE_CONF_OPT += --enable-orc
-endif
+#ifeq ($(BR2_PACKAGE_ORC),y)
+#GST1_PLUGINS_BASE_DEPENDENCIES += orc
+#GST1_PLUGINS_BASE_CONF_OPT += --enable-orc
+#endif
+
+GST1_PLUGINS_BASE_CONF_OPT += --disable-orc
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BASE_PLUGIN_ADDER),y)
 GST1_PLUGINS_BASE_CONF_OPT += --enable-adder
