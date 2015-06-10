@@ -39,6 +39,20 @@ config BR2_PACKAGE_PLUGIN_I2CCONTROL
     simple commands can be send from javascript to control a PCF8574 (8 
     bits I/O), a MCP23017 (16 bits I/O) or a DS1621 (temperature sensor).
 
+config BR2_PACKAGE_PLUGIN_SPICONTROL
+  bool "spicontrol"
+  help
+    An implementation of a SPI bridge to a web request. Using this plugin
+    simple commands can be send from javascript to control a MCP3002 (10 
+    bits dual channel ADC).
+
+config BR2_PACKAGE_PLUGIN_TEMPCONTROL
+  bool "tempcontrol"
+  help
+    An implementation using the 1-Wire kernel module with the temp 1-Wire
+    kernel module (Exposing all informatin in the sysfs). Allows for 
+    retrieving 1-wire values via the webbridge into the javascript world.
+
 config BR2_PACKAGE_PLUGIN_FILESERVER
   bool "fileserver"
   help

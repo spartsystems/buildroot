@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-RPI_USERLAND_VERSION = 7650bcbc9ba8f1c5e29be7726d184b31c2665c46
+RPI_USERLAND_VERSION = b834074d0c0d9d7e64c133ab14ed691999cee990
 RPI_USERLAND_SITE = $(call github,raspberrypi,userland,$(RPI_USERLAND_VERSION))
 RPI_USERLAND_LICENSE = BSD-3c
 RPI_USERLAND_LICENSE_FILES = LICENCE
@@ -18,13 +18,20 @@ endif
 
 define RPI_USERLAND_POST_TARGET_CLEANUP
 	rm -f $(TARGET_DIR)/etc/init.d/vcfiled
+	rm -f $(TARGET_DIR)/usr/share/install/vcfiled
+	rmdir --ignore-fail-on-non-empty $(TARGET_DIR)/usr/share/install
 	rm -Rf $(TARGET_DIR)/usr/src
 endef
 
 RPI_USERLAND_POST_INSTALL_TARGET_HOOKS += RPI_USERLAND_POST_TARGET_CLEANUP
 
 define RPI_USERLAND_POST_TARGET_CLEANUP_TOOLS
+	rm -f $(TARGET_DIR)/usr/bin/tvservice
+	rm -f $(TARGET_DIR)/usr/bin/vc{smem,gencmd,hiq_test,mailbox}
+	rm -f $(TARGET_DIR)/usr/sbin/vcfiled
 	rm -f $(TARGET_DIR)/usr/bin/raspi*
+	rm -f $(TARGET_DIR)/usr/bin/containers_*
+	rm -f $(TARGET_DIR)/usr/bin/mmal_vc*
 endef
 
 ifneq ($(BR2_PACKAGE_RPI_USERLAND_INSTALL_TOOLS),y)

@@ -4,6 +4,9 @@
 #
 ################################################################################
 
+ifeq ($(BR2_PACKAGE_GSTREAMER1_GIT),y)
+GSTREAMER1_VERSION = c991c64fb262ee9a30303f48a5e0927e3c7fd681
+endif
 GSTREAMER1_SOURCE = gstreamer-$(GSTREAMER1_VERSION).tar.gz
 GSTREAMER1_SITE = http://cgit.freedesktop.org/gstreamer/gstreamer/snapshot/
 GSTREAMER1_INSTALL_STAGING = YES
@@ -36,6 +39,7 @@ GSTREAMER1_CONF_OPT = \
 	--disable-benchmarks \
 	--disable-check \
 	$(if $(BR2_PACKAGE_GSTREAMER1_TRACE),,--disable-trace) \
+	$(if $(BR2_PACKAGE_GSTREAMER1_ALLOC_TRACE),,--disable-alloc-trace) \
 	$(if $(BR2_PACKAGE_GSTREAMER1_PARSE),,--disable-parse) \
 	$(if $(BR2_PACKAGE_GSTREAMER1_GST_DEBUG),,--disable-gst-debug) \
 	$(if $(BR2_PACKAGE_GSTREAMER1_PLUGIN_REGISTRY),,--disable-registry) \

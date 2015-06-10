@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GST1_OMX_VERSION = 8936f6634c878973d966df53d23505a7c05e0f0c
+GST1_OMX_VERSION = 3f46a12aab6560ff87fb7d55c41bd9abda4f602d
 GST1_OMX_SOURCE = gst-omx-$(GST1_OMX_VERSION).tar.gz
 GST1_OMX_SITE = http://cgit.freedesktop.org/gstreamer/gst-omx/snapshot/
 
@@ -22,17 +22,17 @@ ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_GL),y)
 GST1_OMX_DEPENDENCIES += gst1-plugins-bad
 endif
 
-ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
 GST1_OMX_CONF_OPT = \
+	--disable-examples
+
+ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
+GST1_OMX_CONF_OPT += \
 	--with-omx-target=rpi
 GST1_OMX_CONF_ENV = \
 	CFLAGS="$(TARGET_CFLAGS) \
 		-I$(STAGING_DIR)/usr/include/IL \
 		-I$(STAGING_DIR)/usr/include/interface/vcos/pthreads \
 		-I$(STAGING_DIR)/usr/include/interface/vmcs_host/linux"
-else
-GST1_OMX_CONF_OPT = \
-	--disable-examples
 endif
 
 ifeq ($(BR2_PACKAGE_BELLAGIO),y)

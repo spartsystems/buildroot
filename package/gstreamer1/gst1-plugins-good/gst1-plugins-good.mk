@@ -5,7 +5,9 @@
 ################################################################################
 
 GST1_PLUGINS_GOOD_VERSION = $(GSTREAMER1_VERSION)
-
+ifeq ($(BR2_PACKAGE_GSTREAMER1_GIT),y)
+GST1_PLUGINS_GOOD_VERSION = 8fd3e0e125f2e77d9b9df15c78ad27ca9dce8f94
+endif
 GST1_PLUGINS_GOOD_SOURCE = gst-plugins-good-$(GST1_PLUGINS_GOOD_VERSION).tar.gz
 GST1_PLUGINS_GOOD_SITE = http://cgit.freedesktop.org/gstreamer/gst-plugins-good/snapshot/
 GST1_PLUGINS_GOOD_INSTALL_STAGING = YES
@@ -30,9 +32,7 @@ GST1_PLUGINS_GOOD_CONF_OPT = \
 	--disable-osx_video \
 	--disable-aalib \
 	--disable-aalibtest \
-	--disable-libcaca \
-	--disable-esd \
-	--disable-esdtest
+	--disable-libcaca
 
 
 # Options which require currently unpackaged libraries
@@ -330,14 +330,10 @@ endif
 ifeq ($(BR2_PACKAGE_XORG7),y)
 GST1_PLUGINS_GOOD_DEPENDENCIES += xlib_libX11 xlib_libXext xlib_libXv
 GST1_PLUGINS_GOOD_CONF_OPT += \
-	--enable-x \
-	--enable-xshm \
-	--enable-xvideo
+	--enable-x
 else
 GST1_PLUGINS_GOOD_CONF_OPT += \
-	--disable-x \
-	--disable-xshm \
-	--disable-xvideo
+	--disable-x
 endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_GOOD_PLUGIN_CAIRO),y)

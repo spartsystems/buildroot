@@ -5,7 +5,9 @@
 ################################################################################
 
 GST1_PLUGINS_BASE_VERSION = $(GSTREAMER1_VERSION)
-
+ifeq ($(BR2_PACKAGE_GSTREAMER1_GIT),y)
+GST1_PLUGINS_BASE_VERSION = 22302db7fcee0557da349c7e1651edb5ace964c9
+endif
 GST1_PLUGINS_BASE_SOURCE = gst-plugins-base-$(GST1_PLUGINS_BASE_VERSION).tar.gz
 GST1_PLUGINS_BASE_SITE = http://cgit.freedesktop.org/gstreamer/gst-plugins-base/snapshot/
 GST1_PLUGINS_BASE_INSTALL_STAGING = YES
@@ -210,5 +212,11 @@ GST1_PLUGINS_BASE_DEPENDENCIES += libvorbis
 else
 GST1_PLUGINS_BASE_CONF_OPT += --disable-vorbis
 endif
+
+define GST1_PLUGINS_BASE_REMOVE_TOOLS
+	rm -f $(TARGET_DIR)/usr/bin/gst-{device-monitor,play,discoverer}-1.0
+endef
+
+GST1_PLUGINS_BASE_POST_INSTALL_TARGET_HOOKS += GST1_PLUGINS_BASE_REMOVE_TOOLS
 
 $(eval $(autotools-package))

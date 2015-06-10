@@ -5,7 +5,9 @@
 ################################################################################
 
 GST1_PLUGINS_BAD_VERSION = $(GSTREAMER1_VERSION)
-
+ifeq ($(BR2_PACKAGE_GSTREAMER1_GIT),y)
+GST1_PLUGINS_BAD_VERSION = 360f0be2a80ca11e1b3b0c087367c48cb18c4c3e
+endif
 GST1_PLUGINS_BAD_SOURCE = gst-plugins-bad-$(GST1_PLUGINS_BAD_VERSION).tar.gz
 GST1_PLUGINS_BAD_SITE = http://cgit.freedesktop.org/gstreamer/gst-plugins-bad/snapshot/
 GST1_PLUGINS_BAD_INSTALL_STAGING = YES
@@ -49,7 +51,6 @@ GST1_PLUGINS_BAD_CONF_OPT += \
 	--disable-voamrwbenc \
 	--disable-voaacenc \
 	--disable-chromaprint \
-	--disable-dash \
 	--disable-dc1394 \
 	--disable-dts \
 	--disable-resindvd \
@@ -74,7 +75,6 @@ GST1_PLUGINS_BAD_CONF_OPT += \
 	--disable-timidity \
 	--disable-teletextdec \
 	--disable-wildmidi \
-	--disable-smoothstreaming \
 	--disable-soundtouch \
 	--disable-spc \
 	--disable-gme \
@@ -672,6 +672,13 @@ GST1_PLUGINS_BAD_CONF_OPT += --enable-sdl
 GST1_PLUGINS_BAD_DEPENDENCIES += sdl
 else
 GST1_PLUGINS_BAD_CONF_OPT += --disable-sdl
+endif
+
+ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_SMOOTHSTREAMING),y)
+GST1_PLUGINS_BAD_CONF_OPT += --enable-smoothstreaming
+GST1_PLUGINS_BAD_DEPENDENCIES += libxml2
+else
+GST1_PLUGINS_BAD_CONF_OPT += --disable-smoothstreaming
 endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_SNDFILE),y)

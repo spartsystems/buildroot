@@ -1,7 +1,7 @@
 Buildroot
 =========
 
-This buildroot fork will produce a very light-weight and trimmed down toolchain, rootfs and kernel for the multiple targets, including the Raspberry Pi. Mainly focused on enabling all HTML5 features WebKit in multiple ports.
+This buildroot fork will produce a very light-weight and trimmed down toolchain, rootfs and kernel for the multiple targets, including the Raspberry Pi 2. Mainly focused on enabling all HTML5 features WebKit in multiple ports.
 
 Dependencies
 ------------
@@ -14,7 +14,7 @@ For host machines with kernel 3.8 or higher (e.g. Ubuntu 13.04) you can use the 
 
 	sudo apt-get install build-essential git subversion cvs unzip whois ncurses-dev bc mercurial f2fs-tools
 
-When creating a VM please allocate a minimal of 20GB disk space.
+When creating a VM please allocate a minimal of 30GB disk space.
 
 Building
 --------
@@ -28,12 +28,24 @@ or
 followed by
 
 	cd buildroot
-	make rpi_qt5webkit_defconfig # more defconfigs are supported
-	make menuconfig              # if you want to add packages
-	make                         # build (NOTICE: Don't use the **-j** switch, it's set to auto-detect)
+Select a browser distribution for **Qt5WebKit** (qtbrowser)
 
-Deploying on a Raspberry PI
----------------------------
+	make rpi2_qt5webkit_defconfig
+
+or for **WebKit Wayland** (wpe)
+
+	make rpi2_wpe_defconfig
+
+If you want to add additional packages
+
+	make menuconfig
+
+Start the **build** (NOTICE: Don't use the **-j** switch, it's set to auto-detect)
+
+	make
+
+Deploying on a Raspberry PI 2
+-----------------------------
 
 You will need to create two partitions on your sdcard and copy files to the appropriate partitons.
 

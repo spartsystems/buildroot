@@ -38,6 +38,7 @@ comment "wpe-gstreamer requires gstreamer 1.x"
 config BR2_PACKAGE_WPE_USE_ENCRYPTED_MEDIA
 	bool "encrypted-media"
 	depends on BR2_WPE_GSTREAMER
+	depends on BR2_PACKAGE_GSTREAMER1_GIT
 	default n
 	help
 	  Enable Encrypted Media Extensions.
@@ -63,10 +64,22 @@ config BR2_PACKAGE_WPE_USE_MEDIA_SOURCE
 comment "media-source requires wpe-gstreamer"
 	depends on !BR2_WPE_GSTREAMER
 
+config BR2_PACKAGE_WPE_USE_THREADED_COMPOSITOR
+	bool "threaded-compositor"
+	default y
+	help
+	  Enable threaded compositor
+
 config BR2_PACKAGE_WPE_ENABLE_JS_MEMORY_TRACKING
 	bool "js-memory-tracking"
 	default n
 	help
 	  Whether to compile in the javascript memory tracking option (which then needs to be activated with the JSC_showAllocationBacktraces environment variable).
+
+config BR2_PACKAGE_WPE_GENERATE_ECLIPSE_PROJECT
+	bool "generate-eclipse-project"
+	default n
+	help
+	  Generate .project file to manage the WPE source code in Eclipse
 
 endmenu
