@@ -1,4 +1,14 @@
 #!/bin/bash
+BOARD_DIR="$(dirname $0)"
+
+mkdir -p $TARGET_DIR/cfg
+mkdir -p $TARGET_DIR/data
+mkdir -p $TARGET_DIR/initlo
+mkdir -p $TARGET_DIR/app
+
+cp $BOARD_DIR/interfaces  $TARGET_DIR/etc/network/interfaces
+cp $BOARD_DIR/S80wifi  $TARGET_DIR/etc/init.d/
+cp $BOARD_DIR/S99app   $TARGET_DIR/etc/init.d/
 
 rm -f $TARGET_DIR/usr/bin/{icuinfo,derb,genbrk,gencfu,gencnval,gendict,genrb,makeconv,pkgdata,uconv}
 rm -f $TARGET_DIR/usr/bin/fc-{cache,cat,list,match,pattern,query,scan,validate}
