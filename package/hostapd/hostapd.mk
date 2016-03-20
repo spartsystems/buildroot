@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-HOSTAPD_VERSION = 2.0
+#HOSTAPD_VERSION = 2.0
+HOSTAPD_VERSION = 2.5
 HOSTAPD_SITE = http://hostap.epitest.fi/releases
 HOSTAPD_SUBDIR = hostapd
 HOSTAPD_CONFIG = $(HOSTAPD_DIR)/$(HOSTAPD_SUBDIR)/.config
@@ -19,7 +20,6 @@ HOSTAPD_LICENSE_FILES = README
 ifeq ($(BR2_PREFER_STATIC_LIB),y)
 HOSTAPD_LIBS += -lnl-3 -lm -lpthread
 endif
-
 define HOSTAPD_LIBNL_CONFIG
 	echo 'CONFIG_LIBNL32=y' >>$(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_VLAN_NETLINK.*\)/\2/' $(HOSTAPD_CONFIG)
@@ -78,6 +78,7 @@ endif
 define HOSTAPD_CONFIGURE_CMDS
 	cp $(@D)/hostapd/defconfig $(HOSTAPD_CONFIG)
 # Misc
+	echo 'CONFIG_DRIVER_RTW=y'  >>$(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_HS20.*\)/\2/' $(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_IEEE80211N.*\)/\2/' $(HOSTAPD_CONFIG)
 	$(SED) 's/\(#\)\(CONFIG_IEEE80211R.*\)/\2/' $(HOSTAPD_CONFIG)
