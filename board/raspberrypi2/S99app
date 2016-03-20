@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Start the network....
+#
+
+case "$1" in
+  start)
+
+	app_img=/initlo/appli.bin
+
+	# Detect init loopback
+	if mount | grep -q "/dev/root on /initlo type" ; then
+    	if test -f ${app_img} ; then
+        	echo "mounting appli from ${app_img}"
+        	if ! mount ${app_img} /app -o loop,ro ; then
+            	echo "Error: mounting appli firmware failed !"
+        	fi
+    	fi
+	fi
+
+    if [ -x /app/start.sh ]; then
+    echo "Launching application..."
+        sh /app/start.sh  &
+    else
+        echo "Error: no application found !"
+		sh /cfg/start.sh
+    fi	
+
+    #/cfg/http-launch  8080 rpicamsrc bitrate=800000 preview=false ! video/x-h264,width=640,height=480,framerate=25/1 ! h264parse ! queue ! matroskamux streamable=true name=stream  &  
+	;;
+  stop)
+	printf "Stopping Appli"
+	
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+

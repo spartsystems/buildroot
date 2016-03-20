@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+
+
+case "$1" in
+  start)
+	echo "Starting AP "
+     #/usr/sbin/wpa_supplicant -Dwext -B -i wlan0 -c /etc/wpa_supplicant.conf	
+	/usr/sbin/hostapd -B /cfg/hostap2.conf
+	/sbin/ifconfig wlan0  192.168.20.1 netmask 255.255.255.0 up &&  /usr/sbin/udhcpd -S -I 192.168.20.1 /cfg/udhcpd.conf
+	;;
+  stop)
+	printf "Stopping AP"
+	;;
+  restart|reload)
+	"$0" stop
+	"$0" start
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?
+
